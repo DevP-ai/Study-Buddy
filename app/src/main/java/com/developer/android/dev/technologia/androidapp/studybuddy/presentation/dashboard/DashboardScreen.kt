@@ -33,6 +33,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.developer.android.dev.technologia.androidapp.studybuddy.R
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Subject
+import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Task
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.CountCard
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.SubjectCard
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.taskList
@@ -49,6 +50,65 @@ fun DashboardScreen(
         Subject(name = "English", goalHours = 10f, colors = Subject.subjectColors[2]),
         Subject(name = "English", goalHours = 10f, colors = Subject.subjectColors[3]),
         Subject(name = "English", goalHours = 10f, colors = Subject.subjectColors[4])
+    )
+
+    val tasks = listOf(
+        Task(
+            title = "Prepare Note",
+            description = "",
+            dueDate = 0L,
+            priority = 1,
+            relatedToSubject = "",
+            isComplete = false
+        ),
+        Task(
+            title = "Prepare Note",
+            description = "",
+            dueDate = 0L,
+            priority = 1,
+            relatedToSubject = "",
+            isComplete = true
+        ),
+        Task(
+            title = "Prepare Note",
+            description = "",
+            dueDate = 0L,
+            priority = 1,
+            relatedToSubject = "",
+            isComplete = true
+        ),
+        Task(
+            title = "Prepare Note",
+            description = "",
+            dueDate = 0L,
+            priority = 1,
+            relatedToSubject = "",
+            isComplete = true
+        ),
+        Task(
+            title = "Prepare Note",
+            description = "",
+            dueDate = 0L,
+            priority = 1,
+            relatedToSubject = "",
+            isComplete = true
+        ),
+        Task(
+            title = "Prepare Note",
+            description = "",
+            dueDate = 0L,
+            priority = 1,
+            relatedToSubject = "",
+            isComplete = true
+        ),
+        Task(
+            title = "Prepare Note",
+            description = "",
+            dueDate = 0L,
+            priority = 1,
+            relatedToSubject = "",
+            isComplete = true
+        )
     )
     Scaffold(
         topBar = {
@@ -89,7 +149,7 @@ fun DashboardScreen(
             }
             taskList(
                 sectionTitle = "UPCOMING TASKS",
-                tasks = emptyList(),
+                tasks = tasks,
                 emptyListText = "You don't have any upcoming tasks.\nClick the + button in subject screen to add new task."
             )
         }
