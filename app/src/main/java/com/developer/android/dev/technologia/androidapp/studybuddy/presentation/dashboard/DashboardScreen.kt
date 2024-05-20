@@ -1,8 +1,6 @@
 package com.developer.android.dev.technologia.androidapp.studybuddy.presentation.dashboard
 
-import android.widget.Space
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -37,9 +35,13 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.R
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Subject
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.CountCard
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.SubjectCard
+import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.taskList
+
 
 @Composable
-fun DashboardScreen() {
+fun DashboardScreen(
+
+) {
 
     val subjects = listOf(
         Subject(name = "English", goalHours = 10f, colors = Subject.subjectColors[0]),
@@ -72,20 +74,24 @@ fun DashboardScreen() {
             item{
                 SubjectCardSection(
                     modifier =  Modifier.fillMaxWidth(),
-                    subjectList =subjects,
-                    onAddIconClicked = {},
-                    onSubjectCardClick = {}
+                    subjectList =subjects
                 )
             }
 
             item{
                 Button(
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .padding(horizontal = 48.dp, vertical = 20.dp),
                     onClick = { /*TODO*/ }) {
                     Text(text = "Start Study Session")
                 }
             }
+            taskList(
+                sectionTitle = "UPCOMING TASKS",
+                tasks = emptyList(),
+                emptyListText = "You don't have any upcoming tasks.\nClick the + button in subject screen to add new task."
+            )
         }
     }
 }
@@ -141,9 +147,7 @@ private fun CountCardSection(
 private fun SubjectCardSection(
     modifier: Modifier,
     subjectList:List<Subject>,
-    emptyListText:String="You don't have any subjects.\nClick + button to add new subhject.",
-    onAddIconClicked:()->Unit,
-    onSubjectCardClick:(Int?)->Unit
+    emptyListText:String="You don't have any subjects.\nClick + button to add new subhject."
 ) {
     Column(modifier=modifier){
         Row (

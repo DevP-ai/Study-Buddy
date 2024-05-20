@@ -16,19 +16,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Subject
 
 @Composable
 fun CountCard(
     modifier: Modifier,
-    headingText:String,count:String
+    headingText:String,
+    count:String
 ) {
-    ElevatedCard(modifier = modifier
-        .clip(CircleShape)) {
+    ElevatedCard(modifier = modifier) {
         Column (
             modifier = Modifier
+                .background(
+                    brush = Brush.verticalGradient(Subject.subjectColors[5]),
+                    shape = MaterialTheme.shapes.small
+                )
                 .fillMaxWidth()
                 .padding(horizontal = 4.dp, vertical = 12.dp),
             verticalArrangement = Arrangement.Center,
@@ -36,6 +42,7 @@ fun CountCard(
         ){
             Text(
                 text = headingText,
+                color = Color.White,
                 style = MaterialTheme.typography.labelMedium
             )
 
@@ -43,6 +50,7 @@ fun CountCard(
 
             Text(
                 text = count,
+                color = Color.White,
                 style = MaterialTheme.typography.bodyMedium.copy(fontSize = 35.sp)
             )
         }
