@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -32,10 +33,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.developer.android.dev.technologia.androidapp.studybuddy.R
+import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Session
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Subject
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Task
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.CountCard
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.SubjectCard
+import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.studySessionList
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.taskList
 
 
@@ -124,6 +127,17 @@ fun DashboardScreen(
             isComplete = true
         )
     )
+
+    val sessions = listOf(
+        Session(0,"Physics",0L,0L,1),
+        Session(0,"Physics",0L,0L,1),
+        Session(0,"Physics",0L,0L,1),
+        Session(0,"Physics",0L,0L,1),
+        Session(0,"Physics",0L,0L,1),
+        Session(0,"Physics",0L,0L,1),
+        Session(0,"Physics",0L,0L,1),
+        Session(0,"Physics",0L,0L,1)
+    )
     Scaffold(
         topBar = {
             DashboardTopAppBar()
@@ -167,6 +181,15 @@ fun DashboardScreen(
                 emptyListText = "You don't have any upcoming tasks.\nClick the + button in subject screen to add new task.",
                 onTaskCardClick = {},
                 onCheckBoxClick = {}
+            )
+            item {
+                Spacer(modifier = Modifier.height(20.dp))
+            }
+            studySessionList(
+                sectionTitle = "RECENT STUDY SESSION",
+                sessions = sessions,
+                emptyListText = "You don't have any recent study sessions.\nStart a study session to begin recording your progress.",
+                onDeleteClick = {}
             )
         }
     }
