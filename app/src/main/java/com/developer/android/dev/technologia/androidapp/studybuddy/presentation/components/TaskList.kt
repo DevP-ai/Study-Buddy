@@ -2,6 +2,7 @@ package com.developer.android.dev.technologia.androidapp.studybuddy.presentation
 
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,11 +26,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.developer.android.dev.technologia.androidapp.studybuddy.R
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Task
+import com.developer.android.dev.technologia.androidapp.studybuddy.utils.Priority
 
 fun LazyListScope.taskList(
     sectionTitle:String,
     tasks:List<Task>,
-    emptyListText:String
+    emptyListText:String,
+    onTaskCardClick:(Int?)->Unit,
+    onCheckBoxClick: () -> Unit
 ){
     item {
         Text(
@@ -63,8 +67,8 @@ fun LazyListScope.taskList(
         TaskCard(
             modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
             task = task,
-            onCheckBoxClick = { /*TODO*/ },
-            onClick = {}
+            onCheckBoxClick = { onCheckBoxClick() },
+            onClick = {onTaskCardClick(task.taskId)}
         )
     }
 }
@@ -87,7 +91,7 @@ private fun TaskCard(
         ){
             TaskCheckBox(
                 isComplete = task.isComplete,
-                borderColor = Color.Black,
+                borderColor = Priority.fromInt(task.priority).color,
                 onCheckBoxClick = {onCheckBoxClick()}
             )
             Spacer(modifier = Modifier.padding(10.dp))

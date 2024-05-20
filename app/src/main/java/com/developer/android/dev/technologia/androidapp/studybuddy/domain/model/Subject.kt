@@ -10,6 +10,7 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.theme.gradient5
 
 data class Subject(
+    val subjectId:Int,
     val name:String,
     val goalHours:Float,
     val colors:List<Color>
