@@ -43,6 +43,7 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Task
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.AddSubjectDialog
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.CountCard
+import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.DeleteDialog
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.SubjectCard
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.studySessionList
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.taskList
@@ -174,6 +175,20 @@ fun DashboardScreen(
             goalHours = it
         }
     )
+
+    var isDeleteDialogOpen by rememberSaveable {
+        mutableStateOf(false)
+    }
+    DeleteDialog(
+        title = "Delete Session?",
+        isOpen = isDeleteDialogOpen,
+        bodyText ="Are you sure, you want to delete this session?\nYour studied hours will be reduced by this\nsession time. This action can not be undone." ,
+        onDismissRequest = {
+            isDeleteDialogOpen=false},
+        onConfirmClick = {
+            isDeleteDialogOpen=false
+        })
+
     Scaffold(
         topBar = {
             DashboardTopAppBar()
@@ -228,7 +243,9 @@ fun DashboardScreen(
                 sectionTitle = "RECENT STUDY SESSION",
                 sessions = sessions,
                 emptyListText = "You don't have any recent study sessions.\nStart a study session to begin recording your progress.",
-                onDeleteClick = {}
+                onDeleteClick = {
+                    isDeleteDialogOpen=true
+                }
             )
         }
     }
