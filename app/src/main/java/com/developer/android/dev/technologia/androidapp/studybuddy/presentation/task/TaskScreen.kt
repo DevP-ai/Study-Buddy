@@ -30,21 +30,26 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Subject
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.DeleteDialog
+import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.SubjectListBottomSheet
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.TaskCheckBox
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.TaskDatePicker
 import com.developer.android.dev.technologia.androidapp.studybuddy.utils.Priority
 import com.developer.android.dev.technologia.androidapp.studybuddy.utils.changeMillsToDateString
+import kotlinx.coroutines.launch
 import java.time.Instant
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -67,11 +72,12 @@ fun TaskScreen() {
     DeleteDialog(
         title = "Delete Task?",
         isOpen = isTaskDeleteDialogOpen,
-        bodyText ="Are you sure, you want to delete this task?\nThis action can not be undone." ,
+        bodyText = "Are you sure, you want to delete this task?\nThis action can not be undone.",
         onDismissRequest = {
-            isTaskDeleteDialogOpen=false},
+            isTaskDeleteDialogOpen = false
+        },
         onConfirmClick = {
-            isTaskDeleteDialogOpen=false
+            isTaskDeleteDialogOpen = false
         })
 
     val datePickerState = rememberDatePickerState(
@@ -84,20 +90,66 @@ fun TaskScreen() {
 
     TaskDatePicker(
         state = datePickerState,
-        isOpen =isTaskDatePickerOpen ,
-        onDismissRequest = { isTaskDatePickerOpen =false },
+        isOpen = isTaskDatePickerOpen,
+        onDismissRequest = { isTaskDatePickerOpen = false },
         onConfirmButtonClick = {
             isTaskDatePickerOpen = false
         }
     )
 
+
+    val subjects = listOf(
+        Subject(
+            subjectId = 0,
+            name = "English",
+            goalHours = 10f,
+            colors = Subject.subjectColors[0]
+        ),
+        Subject(
+            subjectId = 0,
+            name = "Hindi",
+            goalHours = 10f,
+            colors = Subject.subjectColors[1]
+        ),
+        Subject(
+            subjectId = 0,
+            name = "Science",
+            goalHours = 10f,
+            colors = Subject.subjectColors[2]
+        ),
+        Subject(
+            subjectId = 0,
+            name = "English",
+            goalHours = 10f,
+            colors = Subject.subjectColors[3]
+        ),
+        Subject(subjectId = 0, name = "English", goalHours = 10f, colors = Subject.subjectColors[4])
+    )
+
+    val scope = rememberCoroutineScope()
+    var isSubjectBottomSheetOpen by rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    val bottomSheetState = rememberModalBottomSheetState()
+    SubjectListBottomSheet(
+        sheetState = bottomSheetState,
+        isOpen = isSubjectBottomSheetOpen,
+        subjects = subjects,
+        onSubjectClick = {
+            scope.launch { bottomSheetState.hide() }.invokeOnCompletion {
+                if(!bottomSheetState.isVisible) isSubjectBottomSheetOpen = false
+            }
+        },
+        onDismissRequest = { isSubjectBottomSheetOpen = false }
+    )
     Scaffold(
         topBar = {
             TaskScreenTopBar(
                 isTaskComplete = false,
                 isTaskExist = true,
                 checkBoxBorderColor = Color.Red,
-                onDeleteButtonClick = {isTaskDeleteDialogOpen = true},
+                onDeleteButtonClick = { isTaskDeleteDialogOpen = true },
                 onCheckBoxClick = { /*TODO*/ },
                 onBackButtonClick = {}
             )
@@ -144,10 +196,10 @@ fun TaskScreen() {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text =datePickerState.selectedDateMillis.changeMillsToDateString(),
+                    text = datePickerState.selectedDateMillis.changeMillsToDateString(),
                     style = MaterialTheme.typography.bodyLarge
                 )
-                IconButton(onClick = {isTaskDatePickerOpen = true}) {
+                IconButton(onClick = { isTaskDatePickerOpen = true }) {
                     Icon(
                         imageVector = Icons.Default.DateRange,
                         contentDescription = "Select due date"
@@ -194,7 +246,7 @@ fun TaskScreen() {
                     text = "English",
                     style = MaterialTheme.typography.bodyLarge
                 )
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = { isSubjectBottomSheetOpen = true }) {
                     Icon(
                         imageVector = Icons.Default.ArrowDropDown,
                         contentDescription = "Select subject"
