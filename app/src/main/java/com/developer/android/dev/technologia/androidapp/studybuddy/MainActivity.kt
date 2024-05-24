@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.dashboard.DashboardScreen
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.subject.SubjectScreen
+import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.task.TaskScreen
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.theme.StudyBuddyTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +21,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             StudyBuddyTheme {
 //                DashboardScreen()
-                SubjectScreen()
+//                SubjectScreen()
+                TaskScreen()
             }
         }
     }
