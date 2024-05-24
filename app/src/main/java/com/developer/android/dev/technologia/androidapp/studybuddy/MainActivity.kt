@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.dashboard.DashboardScreen
+import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.session.SessionScreen
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.subject.SubjectScreen
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.task.TaskScreen
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.theme.StudyBuddyTheme
@@ -22,7 +23,8 @@ class MainActivity : ComponentActivity() {
             StudyBuddyTheme {
 //                DashboardScreen()
 //                SubjectScreen()
-                TaskScreen()
+//                TaskScreen()
+                SessionScreen()
             }
         }
     }
