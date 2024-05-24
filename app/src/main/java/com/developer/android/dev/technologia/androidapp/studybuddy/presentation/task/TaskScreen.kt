@@ -29,6 +29,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -41,8 +42,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.DeleteDialog
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.TaskCheckBox
+import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.TaskDatePicker
 import com.developer.android.dev.technologia.androidapp.studybuddy.utils.Priority
+import com.developer.android.dev.technologia.androidapp.studybuddy.utils.changeMillsToDateString
+import java.time.Instant
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskScreen() {
     var title by remember { mutableStateOf("") }
@@ -68,6 +73,23 @@ fun TaskScreen() {
         onConfirmClick = {
             isTaskDeleteDialogOpen=false
         })
+
+    val datePickerState = rememberDatePickerState(
+        initialSelectedDateMillis = Instant.now().toEpochMilli()
+    )
+
+    var isTaskDatePickerOpen by rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    TaskDatePicker(
+        state = datePickerState,
+        isOpen =isTaskDatePickerOpen ,
+        onDismissRequest = { isTaskDatePickerOpen =false },
+        onConfirmButtonClick = {
+            isTaskDatePickerOpen = false
+        }
+    )
 
     Scaffold(
         topBar = {
@@ -122,10 +144,10 @@ fun TaskScreen() {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "22 May,2024",
+                    text =datePickerState.selectedDateMillis.changeMillsToDateString(),
                     style = MaterialTheme.typography.bodyLarge
                 )
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = {isTaskDatePickerOpen = true}) {
                     Icon(
                         imageVector = Icons.Default.DateRange,
                         contentDescription = "Select due date"
