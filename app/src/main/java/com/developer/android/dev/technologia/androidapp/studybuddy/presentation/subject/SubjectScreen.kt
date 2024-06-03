@@ -48,14 +48,40 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.DeleteDialog
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.studySessionList
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.taskList
+import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.destinations.TaskScreenRouteDestination
+import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.task.TaskScreenNavArgs
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
+data class SubjectScreenNavArgs(
+    val subjectId: Int
+)
+
+@Destination(navArgsDelegate = SubjectScreenNavArgs::class)
 @Composable
-fun SubjectScreenRoute() {
-    SubjectScreen()
+fun SubjectScreenRoute(
+    navigator: DestinationsNavigator
+) {
+    SubjectScreen(
+        onBackButtonClick = {navigator.navigateUp()},
+        onAddTaskButtonClick = {
+            val navArgs=TaskScreenNavArgs(taskId=null,subjectId = null)
+            navigator.navigate(TaskScreenRouteDestination(navArgs=navArgs))
+        },
+        onTaskCardClick = {taskId->
+            val navArgs=TaskScreenNavArgs(taskId=taskId,subjectId = null)
+            navigator.navigate(TaskScreenRouteDestination(navArgs=navArgs))
+        }
+    )
 }
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun SubjectScreen() {
+private fun SubjectScreen(
+    onBackButtonClick: () -> Unit,
+    onAddTaskButtonClick: () -> Unit,
+    onTaskCardClick: (Int?) -> Unit
+) {
     val tasks = listOf(
         Task(
             taskId = 1,
@@ -130,14 +156,14 @@ private fun SubjectScreen() {
     )
 
     val sessions = listOf(
-        Session(0,"Physics",0L,0L,1),
-        Session(0,"Physics",0L,0L,1),
-        Session(0,"Physics",0L,0L,1),
-        Session(0,"Physics",0L,0L,1),
-        Session(0,"Physics",0L,0L,1),
-        Session(0,"Physics",0L,0L,1),
-        Session(0,"Physics",0L,0L,1),
-        Session(0,"Physics",0L,0L,1)
+        Session(0, "Physics", 0L, 0L, 1),
+        Session(0, "Physics", 0L, 0L, 1),
+        Session(0, "Physics", 0L, 0L, 1),
+        Session(0, "Physics", 0L, 0L, 1),
+        Session(0, "Physics", 0L, 0L, 1),
+        Session(0, "Physics", 0L, 0L, 1),
+        Session(0, "Physics", 0L, 0L, 1),
+        Session(0, "Physics", 0L, 0L, 1)
     )
 
 
@@ -145,7 +171,7 @@ private fun SubjectScreen() {
         mutableStateOf(false)
     }
 
-    var subjectName by remember { mutableStateOf("")  }
+    var subjectName by remember { mutableStateOf("") }
 
     var goalHours by remember { mutableStateOf("") }
 
@@ -153,18 +179,18 @@ private fun SubjectScreen() {
 
     AddSubjectDialog(
         isOpen = isEditSubjectDialogOpen,
-        onDismissRequest = { isEditSubjectDialogOpen=false },
+        onDismissRequest = { isEditSubjectDialogOpen = false },
         onConfirmClick = {
-            isEditSubjectDialogOpen=false
+            isEditSubjectDialogOpen = false
         },
-        selectedColor=selectedColor,
+        selectedColor = selectedColor,
         onColorChange = {
-            selectedColor=it
+            selectedColor = it
         },
-        subjectName =subjectName ,
+        subjectName = subjectName,
         goalHours = goalHours,
         onSubjectNameChange = {
-            subjectName=it
+            subjectName = it
         },
         onGoalHourChange = {
             goalHours = it
@@ -178,11 +204,12 @@ private fun SubjectScreen() {
     DeleteDialog(
         title = "Delete Session?",
         isOpen = isDeleteDialogOpen,
-        bodyText ="Are you sure, you want to delete this session?\nYour studied hours will be reduced by this\nsession time. This action can not be undone." ,
+        bodyText = "Are you sure, you want to delete this session?\nYour studied hours will be reduced by this\nsession time. This action can not be undone.",
         onDismissRequest = {
-            isDeleteDialogOpen=false},
+            isDeleteDialogOpen = false
+        },
         onConfirmClick = {
-            isDeleteDialogOpen=false
+            isDeleteDialogOpen = false
         })
 
     var isSubjectDeleteDialogOpen by rememberSaveable {
@@ -191,17 +218,18 @@ private fun SubjectScreen() {
     DeleteDialog(
         title = "Delete Subject?",
         isOpen = isSubjectDeleteDialogOpen,
-        bodyText ="Are you sure, you want to delete this subject?All related tasks and study sessions will be permanently removed.This action can not be undone." ,
+        bodyText = "Are you sure, you want to delete this subject?All related tasks and study sessions will be permanently removed.This action can not be undone.",
         onDismissRequest = {
-            isSubjectDeleteDialogOpen=false},
+            isSubjectDeleteDialogOpen = false
+        },
         onConfirmClick = {
-            isSubjectDeleteDialogOpen=false
+            isSubjectDeleteDialogOpen = false
         })
 
     val listState = rememberLazyListState()
 
     val isFabExpanded by remember {
-        derivedStateOf { listState.firstVisibleItemIndex ==0 }
+        derivedStateOf { listState.firstVisibleItemIndex == 0 }
     }
 
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -210,35 +238,35 @@ private fun SubjectScreen() {
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             SubjectScreenTopBar(
-                title ="English",
-                onBackButtonClick = { /*TODO*/ },
-                onDeleteButtonClick = { isSubjectDeleteDialogOpen=true },
-                onEditButtonClick = {isEditSubjectDialogOpen=true},
+                title = "English",
+                onBackButtonClick = onBackButtonClick,
+                onDeleteButtonClick = { isSubjectDeleteDialogOpen = true },
+                onEditButtonClick = { isEditSubjectDialogOpen = true },
                 scrollBehavior = scrollBehavior
-                )
+            )
         },
         floatingActionButton = {
             ExtendedFloatingActionButton(
-                onClick = { /*TODO*/ },
-                icon = { Icon(imageVector = Icons.Default.Add, contentDescription = "Add Tasks")},
-                text = { Text(text = "Add Tasks")},
+                onClick = onAddTaskButtonClick,
+                icon = { Icon(imageVector = Icons.Default.Add, contentDescription = "Add Tasks") },
+                text = { Text(text = "Add Tasks") },
                 expanded = isFabExpanded
             )
         }
-    ) {paddingValues ->
-        LazyColumn (
+    ) { paddingValues ->
+        LazyColumn(
             state = listState,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-        ){
-            item{
+        ) {
+            item {
                 SubjectOverviewSection(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(12.dp),
                     studiedHours = "10",
-                    goalHours ="20" ,
+                    goalHours = "20",
                     progress = 0.75f
                 )
             }
@@ -247,7 +275,8 @@ private fun SubjectScreen() {
                 sectionTitle = "UPCOMING TASKS",
                 tasks = tasks,
                 emptyListText = "You don't have any upcoming tasks.\nClick the + button in subject screen to add new task.",
-                onTaskCardClick = {},
+                onTaskCardClick = {taskId ->
+                    onTaskCardClick(taskId)},
                 onCheckBoxClick = {}
             )
             item {
@@ -257,7 +286,9 @@ private fun SubjectScreen() {
                 sectionTitle = "COMPLETED TASKS",
                 tasks = emptyList(),
                 emptyListText = "You don't have any completed tasks.\nClick the check box on completion of tasks.",
-                onTaskCardClick = {},
+                onTaskCardClick = { taskId ->
+                    onTaskCardClick(taskId)
+                },
                 onCheckBoxClick = {}
             )
             item {
@@ -279,9 +310,9 @@ private fun SubjectScreen() {
 @Composable
 private fun SubjectScreenTopBar(
     title: String,
-    onBackButtonClick:()->Unit,
-    onDeleteButtonClick:()->Unit,
-    onEditButtonClick:()->Unit,
+    onBackButtonClick: () -> Unit,
+    onDeleteButtonClick: () -> Unit,
+    onEditButtonClick: () -> Unit,
     scrollBehavior: TopAppBarScrollBehavior
 ) {
     LargeTopAppBar(
@@ -290,7 +321,8 @@ private fun SubjectScreenTopBar(
             IconButton(onClick = { onBackButtonClick() }) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
-                    contentDescription ="Navigation Back" )
+                    contentDescription = "Navigation Back"
+                )
             }
         },
         title = {
@@ -305,13 +337,13 @@ private fun SubjectScreenTopBar(
             IconButton(onClick = { onDeleteButtonClick() }) {
                 Icon(
                     imageVector = Icons.Default.Delete,
-                    contentDescription ="Delete Subject"
+                    contentDescription = "Delete Subject"
                 )
             }
             IconButton(onClick = { onEditButtonClick() }) {
                 Icon(
                     imageVector = Icons.Default.Edit,
-                    contentDescription ="Edit Subject"
+                    contentDescription = "Edit Subject"
                 )
             }
         }
@@ -321,18 +353,18 @@ private fun SubjectScreenTopBar(
 @Composable
 private fun SubjectOverviewSection(
     modifier: Modifier,
-    studiedHours:String,
-    goalHours:String,
-    progress:Float
+    studiedHours: String,
+    goalHours: String,
+    progress: Float
 ) {
     val progressPercentage = remember(progress) {
-        (progress*100).toInt().coerceIn(0,100)
+        (progress * 100).toInt().coerceIn(0, 100)
     }
-    Row (
+    Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
-    ){
+    ) {
         CountCard(
             modifier = Modifier.weight(1f),
             headingText = "Goal Study Hours",
@@ -350,7 +382,7 @@ private fun SubjectOverviewSection(
         Box(
             modifier = Modifier.size(75.dp),
             contentAlignment = Alignment.Center
-        ){
+        ) {
             CircularProgressIndicator(
                 modifier = Modifier.fillMaxSize(),
                 progress = 1f,

@@ -41,8 +41,10 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.DeleteDialog
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.SubjectListBottomSheet
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.studySessionList
+import com.ramcosta.composedestinations.annotation.Destination
 import kotlinx.coroutines.launch
 
+@Destination
 @Composable
 fun SessionScreenRoute() {
     SessionScreen()

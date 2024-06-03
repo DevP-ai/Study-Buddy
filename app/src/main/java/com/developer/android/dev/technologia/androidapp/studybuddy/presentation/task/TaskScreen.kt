@@ -49,16 +49,27 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.TaskDatePicker
 import com.developer.android.dev.technologia.androidapp.studybuddy.utils.Priority
 import com.developer.android.dev.technologia.androidapp.studybuddy.utils.changeMillsToDateString
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.launch
 import java.time.Instant
 
+data class TaskScreenNavArgs(
+    val taskId:Int?,
+    val subjectId:Int?
+)
+@Destination(navArgsDelegate = TaskScreenNavArgs::class)
 @Composable
-fun TaskScreenRoute() {
-    TaskScreen()
+fun TaskScreenRoute(
+    navigator: DestinationsNavigator
+) {
+   TaskScreen(onBackButtonClick = {navigator.navigateUp()})
 }
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TaskScreen() {
+private fun TaskScreen(
+    onBackButtonClick: () -> Unit
+) {
     var title by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
 
@@ -155,7 +166,7 @@ private fun TaskScreen() {
                 checkBoxBorderColor = Color.Red,
                 onDeleteButtonClick = { isTaskDeleteDialogOpen = true },
                 onCheckBoxClick = { /*TODO*/ },
-                onBackButtonClick = {}
+                onBackButtonClick = onBackButtonClick
             )
         }
     ) { paddingValues ->
