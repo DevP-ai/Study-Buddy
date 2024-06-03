@@ -48,11 +48,13 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.studySessionList
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.taskList
 
+@Composable
+fun DashboardScreenRoute() {
+    DashboardScreen()
+}
 
 @Composable
-fun DashboardScreen(
-
-) {
+private fun DashboardScreen() {
 
     val subjects = listOf(
         Subject(subjectId = 0, name = "English", goalHours = 10f, colors = Subject.subjectColors[0]),

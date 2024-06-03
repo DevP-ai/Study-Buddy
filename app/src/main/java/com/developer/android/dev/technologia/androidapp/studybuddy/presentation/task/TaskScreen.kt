@@ -52,9 +52,13 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.utils.changeM
 import kotlinx.coroutines.launch
 import java.time.Instant
 
+@Composable
+fun TaskScreenRoute() {
+    TaskScreen()
+}
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TaskScreen() {
+private fun TaskScreen() {
     var title by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
 

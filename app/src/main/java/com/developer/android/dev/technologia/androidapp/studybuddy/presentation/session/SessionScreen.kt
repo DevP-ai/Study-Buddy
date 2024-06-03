@@ -43,9 +43,13 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.studySessionList
 import kotlinx.coroutines.launch
 
+@Composable
+fun SessionScreenRoute() {
+    SessionScreen()
+}
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SessionScreen() {
+private fun SessionScreen() {
 
     val subjects = listOf(
         Subject(

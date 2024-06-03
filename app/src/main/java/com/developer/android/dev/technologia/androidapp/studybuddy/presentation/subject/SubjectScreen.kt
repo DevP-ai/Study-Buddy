@@ -1,12 +1,10 @@
 package com.developer.android.dev.technologia.androidapp.studybuddy.presentation.subject
 
-import android.widget.Space
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -51,11 +49,13 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.studySessionList
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.taskList
 
+@Composable
+fun SubjectScreenRoute() {
+    SubjectScreen()
+}
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SubjectScreen(
-
-) {
+private fun SubjectScreen() {
     val tasks = listOf(
         Task(
             taskId = 1,
