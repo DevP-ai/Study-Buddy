@@ -1,0 +1,25 @@
+package com.developer.android.dev.technologia.androidapp.studybuddy.domain.repository
+
+import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Subject
+import kotlinx.coroutines.flow.Flow
+
+interface SubjectRepository {
+
+    suspend fun upsertSubject(subject: Subject)
+
+
+    fun getTotalSubjectCount():Flow<Int>
+
+
+    fun getTotalGoalHours():Flow<Float>
+
+
+    suspend fun getSubjectById(subjectId:Int):Subject?
+
+
+    suspend fun deleteSubject(subjectId: Int)
+
+
+    fun getAllSubjects():Flow<List<Subject>>
+
+}
