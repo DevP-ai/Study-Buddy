@@ -37,6 +37,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.developer.android.dev.technologia.androidapp.studybuddy.R
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Session
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Subject
@@ -62,6 +63,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 fun DashboardScreenRoute(
     navigator: DestinationsNavigator
 ) {
+    val viewModel:DashboardViewModel= hiltViewModel()
     DashboardScreen(
         onSubjectCardClick = { subjectId ->
             subjectId?.let {
@@ -78,6 +80,7 @@ fun DashboardScreenRoute(
         }
     )
 }
+
 
 @Composable
 private fun DashboardScreen(

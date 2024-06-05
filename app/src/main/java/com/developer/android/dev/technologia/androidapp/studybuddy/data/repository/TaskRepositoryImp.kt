@@ -4,8 +4,9 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.data.local.Ta
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Task
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.repository.TaskRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class TaskRepositoryImp(
+class TaskRepositoryImp @Inject constructor(
     private val taskDao: TaskDao
 ):TaskRepository{
     override suspend fun upsertTask(task: Task) {

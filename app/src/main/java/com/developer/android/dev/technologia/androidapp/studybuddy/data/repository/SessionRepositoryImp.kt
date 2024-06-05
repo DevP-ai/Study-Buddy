@@ -4,8 +4,9 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.data.local.Se
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Session
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.repository.SessionRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class SessionRepositoryImp(
+class SessionRepositoryImp @Inject constructor(
     private val sessionDao: SessionDao
 ):SessionRepository {
     override suspend fun insertSession(session: Session) {

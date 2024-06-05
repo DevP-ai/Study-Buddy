@@ -4,8 +4,9 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.data.local.Su
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Subject
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.repository.SubjectRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class SubjectRepositoryImp(
+class SubjectRepositoryImp @Inject constructor(
     private val subjectDao: SubjectDao
 ):SubjectRepository{
     override suspend fun upsertSubject(subject: Subject) {

@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.developer.android.dev.technologia.androidapp.studybuddy.R
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Session
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Subject
@@ -47,6 +48,7 @@ import kotlinx.coroutines.launch
 @Destination
 @Composable
 fun SessionScreenRoute() {
+    val viewModel:SessionViewModel= hiltViewModel()
     SessionScreen()
 }
 @OptIn(ExperimentalMaterial3Api::class)
