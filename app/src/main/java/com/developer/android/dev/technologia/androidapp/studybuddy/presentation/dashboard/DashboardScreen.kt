@@ -34,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -53,6 +54,9 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.destinations.TaskScreenRouteDestination
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.subject.SubjectScreenNavArgs
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.task.TaskScreenNavArgs
+import com.developer.android.dev.technologia.androidapp.studybuddy.sessions
+import com.developer.android.dev.technologia.androidapp.studybuddy.subjects
+import com.developer.android.dev.technologia.androidapp.studybuddy.tasks
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -89,117 +93,7 @@ private fun DashboardScreen(
     onStartSessionClick: () -> Unit
 ) {
 
-    val subjects = listOf(
-        Subject(
-            subjectId = 0,
-            name = "English",
-            goalHours = 10f,
-            colors = Subject.subjectColors[0]
-        ),
-        Subject(
-            subjectId = 0,
-            name = "English",
-            goalHours = 10f,
-            colors = Subject.subjectColors[1]
-        ),
-        Subject(
-            subjectId = 0,
-            name = "English",
-            goalHours = 10f,
-            colors = Subject.subjectColors[2]
-        ),
-        Subject(
-            subjectId = 0,
-            name = "English",
-            goalHours = 10f,
-            colors = Subject.subjectColors[3]
-        ),
-        Subject(subjectId = 0, name = "English", goalHours = 10f, colors = Subject.subjectColors[4])
-    )
 
-    val tasks = listOf(
-        Task(
-            taskId = 1,
-            taskSubjectId = 0,
-            title = "Prepare Note",
-            description = "",
-            dueDate = 0L,
-            priority = 0,
-            relatedToSubject = "",
-            isComplete = false
-        ),
-        Task(
-            taskId = 1,
-            taskSubjectId = 0,
-            title = "Prepare Note",
-            description = "",
-            dueDate = 0L,
-            priority = 1,
-            relatedToSubject = "",
-            isComplete = true
-        ),
-        Task(
-            taskId = 1,
-            taskSubjectId = 0,
-            title = "Prepare Note",
-            description = "",
-            dueDate = 0L,
-            priority = 2,
-            relatedToSubject = "",
-            isComplete = true
-        ),
-        Task(
-            taskId = 1,
-            taskSubjectId = 0,
-            title = "Prepare Note",
-            description = "",
-            dueDate = 0L,
-            priority = 0,
-            relatedToSubject = "",
-            isComplete = true
-        ),
-        Task(
-            taskId = 1,
-            taskSubjectId = 0,
-            title = "Prepare Note",
-            description = "",
-            dueDate = 0L,
-            priority = 1,
-            relatedToSubject = "",
-            isComplete = true
-        ),
-        Task(
-            taskId = 1,
-            taskSubjectId = 0,
-            title = "Prepare Note",
-            description = "",
-            dueDate = 0L,
-            priority = 2,
-            relatedToSubject = "",
-            isComplete = true
-        ),
-        Task(
-            taskId = 1,
-            taskSubjectId = 0,
-            title = "Prepare Note",
-            description = "",
-            dueDate = 0L,
-            priority = 1,
-            relatedToSubject = "",
-            isComplete = true
-        )
-    )
-
-    val sessions = listOf(
-        Session(0, "Physics", 0L, 0L, 1),
-        Session(0, "Physics", 0L, 0L, 1),
-        Session(0, "Physics", 0L, 0L, 1),
-        Session(0, "Physics", 0L, 0L, 1),
-        Session(0, "Physics", 0L, 0L, 1),
-        Session(0, "Physics", 0L, 0L, 1),
-        Session(0, "Physics", 0L, 0L, 1),
-        Session(0, "Physics", 0L, 0L, 1)
-    )
 
     var isAddSubjectDialogOpen by rememberSaveable {
         mutableStateOf(false)
@@ -406,7 +300,7 @@ private fun SubjectCardSection(
             items(subjectList) { subject ->
                 SubjectCard(
                     onClick = { onSubjectCardClick(subject.subjectId) },
-                    gradientColors = subject.colors,
+                    gradientColors = subject.colors.map { Color(it) },
                     subjectName = subject.name
                 )
             }

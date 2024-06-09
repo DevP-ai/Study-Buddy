@@ -51,6 +51,8 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.taskList
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.destinations.TaskScreenRouteDestination
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.task.TaskScreenNavArgs
+import com.developer.android.dev.technologia.androidapp.studybuddy.sessions
+import com.developer.android.dev.technologia.androidapp.studybuddy.tasks
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -84,90 +86,6 @@ private fun SubjectScreen(
     onAddTaskButtonClick: () -> Unit,
     onTaskCardClick: (Int?) -> Unit
 ) {
-    val tasks = listOf(
-        Task(
-            taskId = 1,
-            taskSubjectId = 0,
-            title = "Prepare Note",
-            description = "",
-            dueDate = 0L,
-            priority = 0,
-            relatedToSubject = "",
-            isComplete = false
-        ),
-        Task(
-            taskId = 1,
-            taskSubjectId = 0,
-            title = "Prepare Note",
-            description = "",
-            dueDate = 0L,
-            priority = 1,
-            relatedToSubject = "",
-            isComplete = true
-        ),
-        Task(
-            taskId = 1,
-            taskSubjectId = 0,
-            title = "Prepare Note",
-            description = "",
-            dueDate = 0L,
-            priority = 2,
-            relatedToSubject = "",
-            isComplete = true
-        ),
-        Task(
-            taskId = 1,
-            taskSubjectId = 0,
-            title = "Prepare Note",
-            description = "",
-            dueDate = 0L,
-            priority = 0,
-            relatedToSubject = "",
-            isComplete = true
-        ),
-        Task(
-            taskId = 1,
-            taskSubjectId = 0,
-            title = "Prepare Note",
-            description = "",
-            dueDate = 0L,
-            priority = 1,
-            relatedToSubject = "",
-            isComplete = true
-        ),
-        Task(
-            taskId = 1,
-            taskSubjectId = 0,
-            title = "Prepare Note",
-            description = "",
-            dueDate = 0L,
-            priority = 2,
-            relatedToSubject = "",
-            isComplete = true
-        ),
-        Task(
-            taskId = 1,
-            taskSubjectId = 0,
-            title = "Prepare Note",
-            description = "",
-            dueDate = 0L,
-            priority = 1,
-            relatedToSubject = "",
-            isComplete = true
-        )
-    )
-
-    val sessions = listOf(
-        Session(0, "Physics", 0L, 0L, 1),
-        Session(0, "Physics", 0L, 0L, 1),
-        Session(0, "Physics", 0L, 0L, 1),
-        Session(0, "Physics", 0L, 0L, 1),
-        Session(0, "Physics", 0L, 0L, 1),
-        Session(0, "Physics", 0L, 0L, 1),
-        Session(0, "Physics", 0L, 0L, 1),
-        Session(0, "Physics", 0L, 0L, 1)
-    )
-
 
     var isEditSubjectDialogOpen by rememberSaveable {
         mutableStateOf(false)

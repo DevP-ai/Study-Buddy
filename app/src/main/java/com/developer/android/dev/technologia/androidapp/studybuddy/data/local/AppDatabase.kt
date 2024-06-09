@@ -9,7 +9,7 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.
 
 @Database(
     entities = [Subject::class,Session::class, Task::class],
-    version = 1
+    version = 1, exportSchema = false
 )
 @TypeConverters(ColorListConverter::class)
 abstract class AppDatabase:RoomDatabase(){

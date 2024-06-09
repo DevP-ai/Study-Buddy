@@ -32,6 +32,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -42,6 +43,8 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.DeleteDialog
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.SubjectListBottomSheet
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.studySessionList
+import com.developer.android.dev.technologia.androidapp.studybuddy.sessions
+import com.developer.android.dev.technologia.androidapp.studybuddy.subjects
 import com.ramcosta.composedestinations.annotation.Destination
 import kotlinx.coroutines.launch
 
@@ -54,34 +57,6 @@ fun SessionScreenRoute() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun SessionScreen() {
-
-    val subjects = listOf(
-        Subject(
-            subjectId = 0,
-            name = "English",
-            goalHours = 10f,
-            colors = Subject.subjectColors[0]
-        ),
-        Subject(
-            subjectId = 0,
-            name = "Hindi",
-            goalHours = 10f,
-            colors = Subject.subjectColors[1]
-        ),
-        Subject(
-            subjectId = 0,
-            name = "Science",
-            goalHours = 10f,
-            colors = Subject.subjectColors[2]
-        ),
-        Subject(
-            subjectId = 0,
-            name = "English",
-            goalHours = 10f,
-            colors = Subject.subjectColors[3]
-        ),
-        Subject(subjectId = 0, name = "English", goalHours = 10f, colors = Subject.subjectColors[4])
-    )
 
     val scope = rememberCoroutineScope()
     var isSubjectBottomSheetOpen by rememberSaveable {
@@ -99,17 +74,6 @@ private fun SessionScreen() {
             }
         },
         onDismissRequest = { isSubjectBottomSheetOpen = false }
-    )
-
-    val sessions = listOf(
-        Session(0,"Physics",0L,0L,1),
-        Session(0,"English",0L,0L,1),
-        Session(0,"Hindi",0L,0L,1),
-        Session(0,"Physics",0L,0L,1),
-        Session(0,"Physics",0L,0L,1),
-        Session(0,"Physics",0L,0L,1),
-        Session(0,"Physics",0L,0L,1),
-        Session(0,"Physics",0L,0L,1)
     )
 
     var isDeleteDialogOpen by rememberSaveable {

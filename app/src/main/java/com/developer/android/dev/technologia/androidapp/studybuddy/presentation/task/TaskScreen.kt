@@ -41,6 +41,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Subject
@@ -48,6 +49,7 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.SubjectListBottomSheet
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.TaskCheckBox
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.TaskDatePicker
+import com.developer.android.dev.technologia.androidapp.studybuddy.subjects
 import com.developer.android.dev.technologia.androidapp.studybuddy.utils.Priority
 import com.developer.android.dev.technologia.androidapp.studybuddy.utils.changeMillsToDateString
 import com.ramcosta.composedestinations.annotation.Destination
@@ -116,33 +118,7 @@ private fun TaskScreen(
     )
 
 
-    val subjects = listOf(
-        Subject(
-            subjectId = 0,
-            name = "English",
-            goalHours = 10f,
-            colors = Subject.subjectColors[0]
-        ),
-        Subject(
-            subjectId = 0,
-            name = "Hindi",
-            goalHours = 10f,
-            colors = Subject.subjectColors[1]
-        ),
-        Subject(
-            subjectId = 0,
-            name = "Science",
-            goalHours = 10f,
-            colors = Subject.subjectColors[2]
-        ),
-        Subject(
-            subjectId = 0,
-            name = "English",
-            goalHours = 10f,
-            colors = Subject.subjectColors[3]
-        ),
-        Subject(subjectId = 0, name = "English", goalHours = 10f, colors = Subject.subjectColors[4])
-    )
+
 
     val scope = rememberCoroutineScope()
     var isSubjectBottomSheetOpen by rememberSaveable {

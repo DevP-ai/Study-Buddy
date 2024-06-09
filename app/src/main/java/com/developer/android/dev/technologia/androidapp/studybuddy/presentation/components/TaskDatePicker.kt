@@ -36,13 +36,13 @@ fun TaskDatePicker(
                 DatePicker(
                     state = state,
                     dateValidator = { timestamp ->
-                       val selectedDate = Instant
-                           .ofEpochMilli(timestamp)
-                           .atZone(ZoneId.systemDefault())
-                           .toLocalDate()
+                        val selectedDate = Instant
+                            .ofEpochMilli(timestamp)
+                            .atZone(ZoneId.systemDefault())
+                            .toLocalDate()
 
                         val currentDate = LocalDate.now(ZoneId.systemDefault())
-                        selectedDate>=currentDate
+                        selectedDate >= currentDate
                     }
                 )
             }

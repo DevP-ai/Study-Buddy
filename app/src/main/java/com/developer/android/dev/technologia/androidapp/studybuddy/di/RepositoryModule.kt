@@ -6,6 +6,7 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.data.reposito
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.repository.SessionRepository
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.repository.SubjectRepository
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.repository.TaskRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,16 +18,16 @@ import javax.inject.Singleton
 abstract class RepositoryModule {
 
     @Singleton
-    @Provides
+    @Binds
     abstract fun bindSubjectRepository(subjectImpl:SubjectRepositoryImp):SubjectRepository
 
 
     @Singleton
-    @Provides
+    @Binds
     abstract fun bindTaskRepository(taskImpl:TaskRepositoryImp):TaskRepository
 
     @Singleton
-    @Provides
+    @Binds
     abstract fun bindSessionRepository(sessionImpl:SessionRepositoryImp):SessionRepository
 
 }
