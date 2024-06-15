@@ -32,24 +32,28 @@ val subjects = listOf(
         colors = Subject.subjectColors[0].map { it.toArgb() }
     ),
     Subject(
-        subjectId = 0,
+        subjectId = 1,
         name = "English",
         goalHours = 10f,
         colors = Subject.subjectColors[1].map { it.toArgb() }
     ),
     Subject(
-        subjectId = 0,
+        subjectId = 2,
         name = "English",
         goalHours = 10f,
         colors = Subject.subjectColors[2].map { it.toArgb() }
     ),
     Subject(
-        subjectId = 0,
+        subjectId = 3,
         name = "English",
         goalHours = 10f,
         colors = Subject.subjectColors[3].map { it.toArgb() }
     ),
-    Subject(subjectId = 0, name = "English", goalHours = 10f, colors = Subject.subjectColors[4].map { it.toArgb() })
+    Subject(
+        subjectId = 4,
+        name = "English",
+        goalHours = 10f,
+        colors = Subject.subjectColors[4].map { it.toArgb() })
 )
 
 val tasks = listOf(
@@ -64,7 +68,7 @@ val tasks = listOf(
         isComplete = false
     ),
     Task(
-        taskId = 1,
+        taskId = 2,
         taskSubjectId = 0,
         title = "Prepare Note",
         description = "",
@@ -74,7 +78,7 @@ val tasks = listOf(
         isComplete = true
     ),
     Task(
-        taskId = 1,
+        taskId = 3,
         taskSubjectId = 0,
         title = "Prepare Note",
         description = "",
@@ -84,7 +88,7 @@ val tasks = listOf(
         isComplete = true
     ),
     Task(
-        taskId = 1,
+        taskId = 4,
         taskSubjectId = 0,
         title = "Prepare Note",
         description = "",
@@ -94,7 +98,7 @@ val tasks = listOf(
         isComplete = true
     ),
     Task(
-        taskId = 1,
+        taskId = 5,
         taskSubjectId = 0,
         title = "Prepare Note",
         description = "",
@@ -104,7 +108,7 @@ val tasks = listOf(
         isComplete = true
     ),
     Task(
-        taskId = 1,
+        taskId = 6,
         taskSubjectId = 0,
         title = "Prepare Note",
         description = "",
@@ -114,7 +118,7 @@ val tasks = listOf(
         isComplete = true
     ),
     Task(
-        taskId = 1,
+        taskId = 7,
         taskSubjectId = 0,
         title = "Prepare Note",
         description = "",
@@ -127,11 +131,11 @@ val tasks = listOf(
 
 val sessions = listOf(
     Session(0, "Physics", 0L, 0L, 1),
-    Session(0, "Physics", 0L, 0L, 1),
-    Session(0, "Physics", 0L, 0L, 1),
-    Session(0, "Physics", 0L, 0L, 1),
-    Session(0, "Physics", 0L, 0L, 1),
-    Session(0, "Physics", 0L, 0L, 1),
-    Session(0, "Physics", 0L, 0L, 1),
-    Session(0, "Physics", 0L, 0L, 1)
+    Session(1, "Physics", 0L, 0L, 1),
+    Session(2, "Physics", 0L, 0L, 1),
+    Session(3, "Physics", 0L, 0L, 1),
+    Session(4, "Physics", 0L, 0L, 1),
+    Session(5, "Physics", 0L, 0L, 1),
+    Session(6, "Physics", 0L, 0L, 1),
+    Session(7, "Physics", 0L, 0L, 1)
 )

@@ -32,14 +32,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.developer.android.dev.technologia.androidapp.studybuddy.R
-import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Session
-import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Subject
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.DeleteDialog
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.SubjectListBottomSheet
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.studySessionList
@@ -51,9 +46,10 @@ import kotlinx.coroutines.launch
 @Destination
 @Composable
 fun SessionScreenRoute() {
-    val viewModel:SessionViewModel= hiltViewModel()
+    val viewModel: SessionViewModel = hiltViewModel()
     SessionScreen()
 }
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun SessionScreen() {
@@ -82,11 +78,12 @@ private fun SessionScreen() {
     DeleteDialog(
         title = "Delete Session?",
         isOpen = isDeleteDialogOpen,
-        bodyText ="Are you sure, you want to delete this session?\nThis action can not be undone." ,
+        bodyText = "Are you sure, you want to delete this session?\nThis action can not be undone.",
         onDismissRequest = {
-            isDeleteDialogOpen=false},
+            isDeleteDialogOpen = false
+        },
         onConfirmClick = {
-            isDeleteDialogOpen=false
+            isDeleteDialogOpen = false
         })
 
     Scaffold(

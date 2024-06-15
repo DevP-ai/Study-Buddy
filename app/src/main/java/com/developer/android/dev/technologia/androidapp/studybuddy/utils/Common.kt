@@ -1,9 +1,11 @@
 package com.developer.android.dev.technologia.androidapp.studybuddy.utils
 
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.ui.graphics.Color
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.theme.Green
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.theme.Orange
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.theme.Red
+import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -32,4 +34,16 @@ fun Long?.changeMillsToDateString():String{
     }?: LocalDate.now()
 
     return date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
+}
+
+fun Long.toHours():Float{
+    val hours=this.toFloat()/3600f
+    return "%.2f".format(hours).toFloat()
+}
+
+sealed class SnackBarEvent{
+    data class ShowSnackBar(
+        val message:String,
+        val duration: SnackbarDuration = SnackbarDuration.Short
+    ):SnackBarEvent()
 }

@@ -27,12 +27,12 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.
 import com.developer.android.dev.technologia.androidapp.studybuddy.utils.Priority
 
 fun LazyListScope.taskList(
-    sectionTitle:String,
-    tasks:List<Task>,
-    emptyListText:String,
-    onTaskCardClick:(Int?)->Unit,
-    onCheckBoxClick: () -> Unit
-){
+    sectionTitle: String,
+    tasks: List<Task>,
+    emptyListText: String,
+    onTaskCardClick: (Int?) -> Unit,
+    onCheckBoxClick: (Task) -> Unit
+) {
     item {
         Text(
             text = sectionTitle,
@@ -40,12 +40,12 @@ fun LazyListScope.taskList(
             modifier = Modifier.padding(12.dp)
         )
     }
-    if(tasks.isEmpty()){
+    if (tasks.isEmpty()) {
         item {
-            Column (
+            Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
-            ){
+            ) {
                 Image(
                     painter = painterResource(id = R.drawable.img_tasks),
                     contentDescription = emptyListText,
@@ -61,12 +61,14 @@ fun LazyListScope.taskList(
             }
         }
     }
-    items(tasks){task->
+    items(tasks) { task ->
         TaskCard(
             modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
             task = task,
-            onCheckBoxClick = { onCheckBoxClick() },
-            onClick = {onTaskCardClick(task.taskId)}
+            onCheckBoxClick = {
+                onCheckBoxClick(task)
+            },
+            onClick = { onTaskCardClick(task.taskId) }
         )
     }
 }
@@ -75,22 +77,22 @@ fun LazyListScope.taskList(
 private fun TaskCard(
     modifier: Modifier = Modifier,
     task: Task,
-    onCheckBoxClick:()->Unit,
-    onClick:()->Unit
+    onCheckBoxClick: () -> Unit,
+    onClick: () -> Unit
 ) {
-    ElevatedCard (
+    ElevatedCard(
         modifier = modifier.clickable { onClick() }
-    ){
+    ) {
         Row(
-            modifier= Modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically
-        ){
+        ) {
             TaskCheckBox(
                 isComplete = task.isComplete,
                 borderColor = Priority.fromInt(task.priority).color,
-                onCheckBoxClick = {onCheckBoxClick()}
+                onCheckBoxClick = { onCheckBoxClick() }
             )
             Spacer(modifier = Modifier.padding(10.dp))
 
@@ -100,9 +102,9 @@ private fun TaskCard(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.typography.titleMedium,
-                    textDecoration = if(task.isComplete){
+                    textDecoration = if (task.isComplete) {
                         TextDecoration.LineThrough
-                    }else TextDecoration.None
+                    } else TextDecoration.None
                 )
                 Spacer(modifier = Modifier.padding(4.dp))
 

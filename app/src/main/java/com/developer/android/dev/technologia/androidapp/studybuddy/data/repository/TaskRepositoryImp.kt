@@ -4,6 +4,7 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.data.local.Ta
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Task
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.repository.TaskRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class TaskRepositoryImp @Inject constructor(
@@ -30,7 +31,21 @@ class TaskRepositoryImp @Inject constructor(
     }
 
     override fun getAllUpcomingTasks(): Flow<List<Task>> {
-        TODO("Not yet implemented")
+        return  taskDao.getAllTasks()
+            .map { tasks->
+                tasks.filter {
+                    it.isComplete.not()
+                }
+            }
+            .map {tasks->
+                sortTasks(tasks)
+            }
+    }
+
+    private fun sortTasks(tasks:List<Task>):List<Task>{
+        return tasks.sortedWith(compareBy<Task>{
+            it.dueDate
+        })
     }
 
 }
