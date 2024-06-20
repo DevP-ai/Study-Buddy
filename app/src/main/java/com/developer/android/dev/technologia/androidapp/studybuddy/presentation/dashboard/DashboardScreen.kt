@@ -42,7 +42,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.developer.android.dev.technologia.androidapp.studybuddy.R
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Session
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Subject
@@ -58,7 +57,7 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.destinations.TaskScreenRouteDestination
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.subject.SubjectScreenNavArgs
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.task.TaskScreenNavArgs
-import com.developer.android.dev.technologia.androidapp.studybuddy.utils.SnackBarEvent
+import com.developer.android.dev.technologia.androidapp.studybuddy.utils.SnackbarEvent
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -79,9 +78,9 @@ fun DashboardScreenRoute(
     DashboardScreen(
         state = state,
         tasks = tasks,
-        snackBarEvent = viewModel.snackBarEventFlow,
         recentSessions = recentSessions,
         onEvent = viewModel::onEvent,
+        snackBarEvent = viewModel.snackBarEventFlow,
         onSubjectCardClick = { subjectId ->
             subjectId?.let {
                 val navArg = SubjectScreenNavArgs(subjectId = subjectId)
@@ -104,7 +103,7 @@ private fun DashboardScreen(
     state: DashboardState,
     tasks: List<Task>,
     recentSessions: List<Session>,
-    snackBarEvent: SharedFlow<SnackBarEvent>,
+    snackBarEvent: SharedFlow<SnackbarEvent>,
     onEvent: (DashboardEvent) -> Unit,
     onSubjectCardClick: (Int?) -> Unit,
     onTaskCardClick: (Int?) -> Unit,
@@ -125,12 +124,14 @@ private fun DashboardScreen(
     LaunchedEffect(key1 = true) {
         snackBarEvent.collectLatest { event ->
             when (event) {
-                is SnackBarEvent.ShowSnackBar ->{
+                is SnackbarEvent.ShowSnackBar ->{
                     snackBarHostState.showSnackbar(
                         message = event.message,
                         duration = event.duration
                     )
                 }
+
+                SnackbarEvent.NavigateUp -> {}
             }
         }
     }

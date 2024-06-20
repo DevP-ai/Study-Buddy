@@ -5,7 +5,6 @@ import androidx.compose.ui.graphics.Color
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.theme.Green
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.theme.Orange
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.theme.Red
-import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -41,9 +40,11 @@ fun Long.toHours():Float{
     return "%.2f".format(hours).toFloat()
 }
 
-sealed class SnackBarEvent{
+sealed class SnackbarEvent{
     data class ShowSnackBar(
         val message:String,
         val duration: SnackbarDuration = SnackbarDuration.Short
-    ):SnackBarEvent()
+    ):SnackbarEvent()
+
+    data object NavigateUp:SnackbarEvent()
 }

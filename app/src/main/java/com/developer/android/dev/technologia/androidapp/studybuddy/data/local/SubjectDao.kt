@@ -9,26 +9,6 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface SubjectDao {
 
-//    @Upsert
-//    fun upsertSubject(subject: Subject)
-//
-//    @Query("SELECT COUNT(*) FROM SUBJECT")
-//    fun getTotalSubjectCount():Int
-//
-//    @Query("SELECT SUM(goalHours) FROM SUBJECT")
-//    fun getTotalGoalHours():Float
-//
-//    @Query("SELECT * FROM SUBJECT WHERE subjectId=:subjectId")
-//    fun getSubjectById(subjectId:Int):Subject?
-//
-//    @Query("DELETE FROM SUBJECT WHERE subjectId=:subjectId")
-//    fun deleteSubject(subjectId: Int)
-//
-//    @Query("SELECT * FROM SUBJECT")
-//    fun getAllSubjects():List<Subject>
-
-
-
     @Upsert
     suspend fun upsertSubject(subject: Subject)
 
@@ -52,5 +32,26 @@ interface SubjectDao {
      * because some functions are one time action so used suspend
      * and some are need continuous action so used Flow
      * **/
+
+    //    @Upsert
+//    fun upsertSubject(subject: Subject)
+//
+//    @Query("SELECT COUNT(*) FROM SUBJECT")
+//    fun getTotalSubjectCount():Int
+//
+//    @Query("SELECT SUM(goalHours) FROM SUBJECT")
+//    fun getTotalGoalHours():Float
+//
+//    @Query("SELECT * FROM SUBJECT WHERE subjectId=:subjectId")
+//    fun getSubjectById(subjectId:Int):Subject?
+//
+//    @Query("DELETE FROM SUBJECT WHERE subjectId=:subjectId")
+//    fun deleteSubject(subjectId: Int)
+//
+//    @Query("SELECT * FROM SUBJECT")
+//    fun getAllSubjects():List<Subject>
+
+
+
 
 }

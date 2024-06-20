@@ -10,7 +10,7 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.repository.SessionRepository
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.repository.SubjectRepository
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.repository.TaskRepository
-import com.developer.android.dev.technologia.androidapp.studybuddy.utils.SnackBarEvent
+import com.developer.android.dev.technologia.androidapp.studybuddy.utils.SnackbarEvent
 import com.developer.android.dev.technologia.androidapp.studybuddy.utils.toHours
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -68,7 +68,7 @@ class DashboardViewModel @Inject constructor(
                 initialValue = emptyList()
             )
 
-    private val _snackBarEventFlow = MutableSharedFlow<SnackBarEvent>()
+    private val _snackBarEventFlow = MutableSharedFlow<SnackbarEvent>()
     val snackBarEventFlow = _snackBarEventFlow.asSharedFlow()
 
     fun onEvent(event: DashboardEvent) {
@@ -123,13 +123,13 @@ class DashboardViewModel @Inject constructor(
                     )
                 }
                 _snackBarEventFlow.emit(
-                    SnackBarEvent.ShowSnackBar(
+                    SnackbarEvent.ShowSnackBar(
                         "Subject saved successfully"
                     )
                 )
             } catch (e: Exception) {
                 _snackBarEventFlow.emit(
-                    SnackBarEvent.ShowSnackBar(
+                    SnackbarEvent.ShowSnackBar(
                         "Couldn't save subject. ${e.message}",
                         SnackbarDuration.Long
                     )
