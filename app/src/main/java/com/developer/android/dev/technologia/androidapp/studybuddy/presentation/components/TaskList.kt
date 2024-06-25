@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.developer.android.dev.technologia.androidapp.studybuddy.R
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Task
 import com.developer.android.dev.technologia.androidapp.studybuddy.utils.Priority
+import com.developer.android.dev.technologia.androidapp.studybuddy.utils.changeMillsToDateString
 
 fun LazyListScope.taskList(
     sectionTitle: String,
@@ -109,7 +110,7 @@ private fun TaskCard(
                 Spacer(modifier = Modifier.padding(4.dp))
 
                 Text(
-                    text = "${task.dueDate}",
+                    text = task.dueDate.changeMillsToDateString(),
                     style = MaterialTheme.typography.bodySmall
                 )
             }

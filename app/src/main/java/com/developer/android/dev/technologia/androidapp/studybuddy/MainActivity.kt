@@ -1,5 +1,6 @@
 package com.developer.android.dev.technologia.androidapp.studybuddy
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,11 +15,22 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             StudyBuddyTheme {
+//                val navController = rememberNavController()
                 DestinationsNavHost(navGraph = NavGraphs.root)
+//                Scaffold(
+//                    bottomBar = { BottomNavigationBar(navController = navController) }
+//                ) {
+//                   DestinationsNavHost(
+//                       navController=navController,
+//                       navGraph = NavGraphs.root
+//                   )
+//
+//                }
             }
         }
     }

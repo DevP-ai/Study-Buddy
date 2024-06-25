@@ -28,8 +28,8 @@ import javax.inject.Inject
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
     private val subjectRepository: SubjectRepository,
-    sessionRepository: SessionRepository,
-    taskRepository: TaskRepository
+    private val sessionRepository: SessionRepository,
+    private val taskRepository: TaskRepository
 ) : ViewModel() {
     private val _state = MutableStateFlow(DashboardState())
 
@@ -99,7 +99,32 @@ class DashboardViewModel @Inject constructor(
 
             DashboardEvent.SaveSubject -> saveSubject()
             DashboardEvent.DeleteSession -> {}
-            is DashboardEvent.OnTaskIsCompleteChange -> {}
+            is DashboardEvent.OnTaskIsCompleteChange -> updateTask(event.task)
+        }
+    }
+
+    private fun updateTask(task: Task) {
+        viewModelScope.launch {
+            try {
+                taskRepository.upsertTask(
+                    task=task.copy(
+                        isComplete = !task.isComplete
+                    )
+                )
+                _snackBarEventFlow.emit(
+                    SnackbarEvent.ShowSnackBar(
+                        "Saved in completed task"
+                    )
+                )
+            } catch (e: Exception) {
+                _snackBarEventFlow.emit(
+                    SnackbarEvent.ShowSnackBar(
+                        "Couldn't complete task. ${e.message}",
+                        SnackbarDuration.Long
+                    )
+                )
+            }
+
         }
     }
 

@@ -7,6 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Subject
+import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Task
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.repository.SessionRepository
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.repository.SubjectRepository
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.repository.TaskRepository
@@ -44,7 +45,7 @@ class SubjectViewModel @Inject constructor(
         taskRepository.getUpcomingTasksForSubject(navArgs.subjectId),
         sessionRepository.getRecentTenSessionsForSubject(navArgs.subjectId),
         sessionRepository.getTotalSessionsDurationBySubject(navArgs.subjectId)
-    ) { state, upcomingTasks, completedTask, recentSessions, totalSessionsDuration ->
+    ) { state,completedTask,upcomingTasks, recentSessions, totalSessionsDuration ->
 
         state.copy(
             upcomingTasks = upcomingTasks,
@@ -67,7 +68,6 @@ class SubjectViewModel @Inject constructor(
 
     fun onEvent(event: SubjectEvent) {
         when (event) {
-            is SubjectEvent.OnDeleteSessionsButtonClick -> TODO()
             is SubjectEvent.OnGoalStudyHoursChange -> {
                 _state.update {
                     it.copy(
@@ -92,10 +92,11 @@ class SubjectViewModel @Inject constructor(
                 }
             }
 
-            is SubjectEvent.OnTaskIsCompleteChange -> {}
+            is SubjectEvent.OnTaskIsCompleteChange ->updateTask(event.task)
             SubjectEvent.UpdatedSubject -> updateSubject()
             SubjectEvent.DeletedSubject -> deleteSubject()
             SubjectEvent.DeletedSession -> {}
+            is SubjectEvent.OnDeleteSessionsButtonClick -> {}
             SubjectEvent.UpdateProgress -> {
                 val goalStudyHours = state.value.goalStudyHours.toFloatOrNull()?:1f
                 _state.update {
@@ -104,6 +105,39 @@ class SubjectViewModel @Inject constructor(
                     )
                 }
             }
+        }
+    }
+
+    private fun updateTask(task: Task) {
+        viewModelScope.launch {
+            try {
+                taskRepository.upsertTask(
+                    task=task.copy(
+                        isComplete = !task.isComplete
+                    )
+                )
+                if(task.isComplete){
+                    _snackBarEventFlow.emit(
+                        SnackbarEvent.ShowSnackBar(
+                            "Saved in completed task"
+                        )
+                    )
+                }else{
+                    _snackBarEventFlow.emit(
+                        SnackbarEvent.ShowSnackBar(
+                            "Saved in upcoming task"
+                        )
+                    )
+                }
+            } catch (e: java.lang.Exception) {
+                _snackBarEventFlow.emit(
+                    SnackbarEvent.ShowSnackBar(
+                        "Couldn't complete task. ${e.message}",
+                        SnackbarDuration.Long
+                    )
+                )
+            }
+
         }
     }
 
