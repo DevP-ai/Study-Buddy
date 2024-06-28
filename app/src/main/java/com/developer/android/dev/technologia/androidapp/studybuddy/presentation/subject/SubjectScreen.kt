@@ -362,7 +362,7 @@ private fun SubjectOverviewSection(
                 strokeWidth = 4.dp,
                 strokeCap = StrokeCap.Round
             )
-            Text(text = "$progressPercentage")
+            Text(text = "$progressPercentage%")
         }
     }
 }

@@ -57,7 +57,8 @@ class TaskRepositoryImp @Inject constructor(
     private fun sortTasks(tasks:List<Task>):List<Task>{
         return tasks.sortedWith(compareBy<Task>{
             it.dueDate
-        })
+        }.thenBy { it.priority }
+        )
     }
 
 }

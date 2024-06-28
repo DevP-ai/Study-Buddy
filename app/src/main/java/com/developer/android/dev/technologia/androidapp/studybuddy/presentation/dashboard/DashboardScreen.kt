@@ -17,7 +17,9 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -39,24 +41,33 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.developer.android.dev.technologia.androidapp.studybuddy.R
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Session
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Subject
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Task
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.AddSubjectDialog
+import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.ChartSection
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.CountCard
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.DeleteDialog
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.SubjectCard
+import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.TimerSection
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.studySessionList
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.taskList
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.destinations.SessionScreenRouteDestination
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.destinations.SubjectScreenRouteDestination
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.destinations.TaskScreenRouteDestination
+import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.session.StudyTimerService
+import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.session.TimerState
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.subject.SubjectScreenNavArgs
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.task.TaskScreenNavArgs
+import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.theme.gradient4
+import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.theme.md_theme_dark_primary
+import com.developer.android.dev.technologia.androidapp.studybuddy.utils.PieChartDataPoint
 import com.developer.android.dev.technologia.androidapp.studybuddy.utils.SnackbarEvent
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
@@ -110,6 +121,7 @@ private fun DashboardScreen(
     onStartSessionClick: () -> Unit
 ) {
 
+
     var isAddSubjectDialogOpen by rememberSaveable {
         mutableStateOf(false)
     }
@@ -124,7 +136,7 @@ private fun DashboardScreen(
     LaunchedEffect(key1 = true) {
         snackBarEvent.collectLatest { event ->
             when (event) {
-                is SnackbarEvent.ShowSnackBar ->{
+                is SnackbarEvent.ShowSnackBar -> {
                     snackBarHostState.showSnackbar(
                         message = event.message,
                         duration = event.duration
@@ -135,13 +147,6 @@ private fun DashboardScreen(
             }
         }
     }
-
-//    var subjectName by remember { mutableStateOf("") }
-//
-//    var goalHours by remember { mutableStateOf("") }
-//
-//    var selectedColor by remember { mutableStateOf(Subject.subjectColors.random()) }
-
     AddSubjectDialog(
         isOpen = isAddSubjectDialogOpen,
         onDismissRequest = { isAddSubjectDialogOpen = false },
@@ -196,6 +201,25 @@ private fun DashboardScreen(
                     goalHours = state.totalGoalStudyHours.toString()
                 )
             }
+            val chartData = listOf(
+                PieChartDataPoint(
+                    value = state.totalGoalStudyHours,
+                    title = "Goal Study Hours",
+                    color = Color.Green
+                ),
+                PieChartDataPoint(
+                    value = state.totalStudiedHours,
+                    title = "Total Studied Hours",
+                    color = Color.Blue
+                )
+            )
+            item {
+                ChartSection(
+                    data = chartData,
+                    studiedHours = state.totalStudiedHours.toString(),
+                    goalHours = state.totalGoalStudyHours.toString()
+                )
+            }
 
             item {
                 SubjectCardSection(
@@ -213,11 +237,18 @@ private fun DashboardScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 48.dp, vertical = 20.dp),
-                    onClick = onStartSessionClick
+                    onClick = onStartSessionClick,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Black,
+                        contentColor = Color.White
+                    )
                 ) {
                     Text(text = "Start Study Session")
                 }
             }
+
+
+
             taskList(
                 sectionTitle = "UPCOMING TASKS",
                 tasks = tasks,
@@ -246,14 +277,27 @@ private fun DashboardScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun DashboardTopAppBar() {
-    CenterAlignedTopAppBar(
-        title = {
-            Text(
-                text = "Study Buddy",
-                style = MaterialTheme.typography.headlineMedium
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(45.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            text = "Study Buddy",
+            style = MaterialTheme.typography.headlineMedium,
+            fontFamily = FontFamily.SansSerif,
+            modifier = Modifier.padding(start = 12.dp)
+        )
+        IconButton(onClick = { }) {
+            Icon(
+                imageVector = Icons.Default.Settings,
+                contentDescription = "Settings"
             )
         }
-    )
+    }
 }
 
 @Composable

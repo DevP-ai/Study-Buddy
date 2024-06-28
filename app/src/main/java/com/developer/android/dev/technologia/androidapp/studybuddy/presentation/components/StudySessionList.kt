@@ -26,6 +26,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.developer.android.dev.technologia.androidapp.studybuddy.R
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Session
+import com.developer.android.dev.technologia.androidapp.studybuddy.utils.changeMillsToDateString
+import com.developer.android.dev.technologia.androidapp.studybuddy.utils.toHours
 
 fun LazyListScope.studySessionList(
     sectionTitle:String,
@@ -37,7 +39,7 @@ fun LazyListScope.studySessionList(
         Text(
             text = sectionTitle,
             style = MaterialTheme.typography.bodySmall,
-            modifier = Modifier.padding(12.dp)
+            modifier = Modifier.padding(10.dp)
         )
     }
     if(sessions.isEmpty()){
@@ -49,9 +51,9 @@ fun LazyListScope.studySessionList(
                 Image(
                     painter = painterResource(id = R.drawable.img_lamp),
                     contentDescription = emptyListText,
-                    modifier = Modifier.size(110.dp)
+                    modifier = Modifier.size(100.dp)
                 )
-                Spacer(modifier = Modifier.padding(12.dp))
+                Spacer(modifier = Modifier.padding(10.dp))
                 Text(
                     text = emptyListText,
                     style = MaterialTheme.typography.bodySmall,
@@ -91,15 +93,18 @@ private fun StudySessionCard(
                     overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.typography.titleMedium
                 )
-
+//                Text(
+//                    text = session.subjectName,
+//                    style = MaterialTheme.typography.bodySmall
+//                )
                 Text(
-                    text = "${session.date}",
+                    text = session.date.changeMillsToDateString(),
                     style = MaterialTheme.typography.bodySmall
                 )
             }
             Spacer(modifier = Modifier.weight(1f))
             Text(
-                text = "${session.duration} hr",
+                text = "${session.duration.toHours()} hr",
                 style = MaterialTheme.typography.bodySmall
             )
             IconButton(onClick = { onDeleteClick() }) {

@@ -95,8 +95,12 @@ class SubjectViewModel @Inject constructor(
             is SubjectEvent.OnTaskIsCompleteChange ->updateTask(event.task)
             SubjectEvent.UpdatedSubject -> updateSubject()
             SubjectEvent.DeletedSubject -> deleteSubject()
-            SubjectEvent.DeletedSession -> {}
-            is SubjectEvent.OnDeleteSessionsButtonClick -> {}
+            SubjectEvent.DeletedSession -> deleteSession()
+            is SubjectEvent.OnDeleteSessionsButtonClick -> {
+                _state.update {
+                    it.copy(session = event.session)
+                }
+            }
             SubjectEvent.UpdateProgress -> {
                 val goalStudyHours = state.value.goalStudyHours.toFloatOrNull()?:1f
                 _state.update {
@@ -104,6 +108,29 @@ class SubjectViewModel @Inject constructor(
                         progress = (state.value.studiedHours/goalStudyHours).coerceIn(0f,1f)
                     )
                 }
+            }
+        }
+    }
+
+    private fun deleteSession(){
+        viewModelScope.launch {
+            try {
+                state.value.session?.let { session->
+                    sessionRepository.deleteSession(session=session)
+
+                    _snackBarEventFlow.emit(
+                        SnackbarEvent.ShowSnackBar(
+                            "Session deleted successfully"
+                        )
+                    )
+                }
+            }catch (e:Exception){
+                _snackBarEventFlow.emit(
+                    SnackbarEvent.ShowSnackBar(
+                        "Couldn't delete session. ${e.message}",
+                        SnackbarDuration.Long
+                    )
+                )
             }
         }
     }
@@ -119,13 +146,13 @@ class SubjectViewModel @Inject constructor(
                 if(task.isComplete){
                     _snackBarEventFlow.emit(
                         SnackbarEvent.ShowSnackBar(
-                            "Saved in completed task"
+                            "Saved in upcoming task"
                         )
                     )
                 }else{
                     _snackBarEventFlow.emit(
                         SnackbarEvent.ShowSnackBar(
-                            "Saved in upcoming task"
+                            "Saved in completed task"
                         )
                     )
                 }
