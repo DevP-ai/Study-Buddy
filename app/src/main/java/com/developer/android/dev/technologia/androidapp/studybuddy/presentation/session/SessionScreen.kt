@@ -464,11 +464,11 @@ fun ButtonsSection(
         ) {
             Text(
                 modifier = Modifier
-                    .padding(horizontal = 8.dp, vertical = 5.dp),
+                    .padding(horizontal = 5.dp, vertical = 5.dp),
                 text = "Cancel"
             )
         }
-        Spacer(modifier = Modifier.width(10.dp))
+        Spacer(modifier = Modifier.width(2.dp))
         Button(
             modifier = Modifier.weight(1f),
             onClick = startButtonClick,
@@ -481,7 +481,7 @@ fun ButtonsSection(
         ) {
             Text(
                 modifier = Modifier
-                    .padding(horizontal = 8.dp, vertical = 5.dp),
+                    .padding(horizontal = 3.dp, vertical = 5.dp),
                 text = when(timerState){
                     TimerState.STARTED -> "Stop"
                     TimerState.STOPPED ->"Resume"
@@ -489,7 +489,7 @@ fun ButtonsSection(
                 }
             )
         }
-        Spacer(modifier = Modifier.width(10.dp))
+        Spacer(modifier = Modifier.width(2.dp))
         Button(
             modifier = Modifier.weight(1f),
             onClick = finishedButtonClick,
@@ -501,7 +501,7 @@ fun ButtonsSection(
         ) {
             Text(
                 modifier = Modifier
-                    .padding(horizontal = 8.dp, vertical = 5.dp),
+                    .padding(horizontal = 5.dp, vertical = 5.dp),
                 text = "Finish"
             )
         }

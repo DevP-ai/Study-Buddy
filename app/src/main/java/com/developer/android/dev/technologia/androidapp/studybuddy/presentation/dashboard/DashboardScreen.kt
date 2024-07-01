@@ -59,10 +59,12 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.studySessionList
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.taskList
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.destinations.SessionScreenRouteDestination
+import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.destinations.SettingsScreenRouteDestination
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.destinations.SubjectScreenRouteDestination
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.destinations.TaskScreenRouteDestination
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.session.StudyTimerService
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.session.TimerState
+import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.settings.SettingsScreenRoute
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.subject.SubjectScreenNavArgs
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.task.TaskScreenNavArgs
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.theme.gradient4
@@ -91,6 +93,7 @@ fun DashboardScreenRoute(
         tasks = tasks,
         recentSessions = recentSessions,
         onEvent = viewModel::onEvent,
+        navigator = navigator,
         snackBarEvent = viewModel.snackBarEventFlow,
         onSubjectCardClick = { subjectId ->
             subjectId?.let {
@@ -114,6 +117,7 @@ private fun DashboardScreen(
     state: DashboardState,
     tasks: List<Task>,
     recentSessions: List<Session>,
+    navigator: DestinationsNavigator,
     snackBarEvent: SharedFlow<SnackbarEvent>,
     onEvent: (DashboardEvent) -> Unit,
     onSubjectCardClick: (Int?) -> Unit,
@@ -183,7 +187,9 @@ private fun DashboardScreen(
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackBarHostState) },
         topBar = {
-            DashboardTopAppBar()
+            DashboardTopAppBar(onClickSettings={
+                navigator.navigate(SettingsScreenRouteDestination())
+            })
         }
     ) { paddingValues ->
         LazyColumn(
@@ -276,7 +282,9 @@ private fun DashboardScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun DashboardTopAppBar() {
+private fun DashboardTopAppBar(
+    onClickSettings:() ->Unit
+) {
 
     Row(
         modifier = Modifier
@@ -291,7 +299,7 @@ private fun DashboardTopAppBar() {
             fontFamily = FontFamily.SansSerif,
             modifier = Modifier.padding(start = 12.dp)
         )
-        IconButton(onClick = { }) {
+        IconButton(onClick ={onClickSettings()}) {
             Icon(
                 imageVector = Icons.Default.Settings,
                 contentDescription = "Settings"
