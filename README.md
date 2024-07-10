@@ -1,5 +1,6 @@
 ﻿# Study Buddy
-<a href="https://play.google.com/store/apps/details?id=com.compose.android.dev.softcoderhub.androidapp.docscanner&pcampaignid=web_share">
+### (The app is set to be launched on the Play Store soon.)
+<a href="">
   <img alt="Banner"
   src="https://github.com/DevP-ai/StudyBuddy/assets/107491760/afc61c4d-4cea-466d-9779-e6334db07982" /></a>
 
