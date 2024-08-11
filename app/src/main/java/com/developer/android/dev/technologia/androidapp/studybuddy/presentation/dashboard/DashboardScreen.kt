@@ -20,7 +20,6 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -44,7 +43,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.developer.android.dev.technologia.androidapp.studybuddy.R
 import com.developer.android.dev.technologia.androidapp.studybuddy.domain.model.Session
@@ -55,20 +53,14 @@ import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.CountCard
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.DeleteDialog
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.SubjectCard
-import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.TimerSection
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.studySessionList
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.components.taskList
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.destinations.SessionScreenRouteDestination
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.destinations.SettingsScreenRouteDestination
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.destinations.SubjectScreenRouteDestination
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.destinations.TaskScreenRouteDestination
-import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.session.StudyTimerService
-import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.session.TimerState
-import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.settings.SettingsScreenRoute
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.subject.SubjectScreenNavArgs
 import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.task.TaskScreenNavArgs
-import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.theme.gradient4
-import com.developer.android.dev.technologia.androidapp.studybuddy.presentation.theme.md_theme_dark_primary
 import com.developer.android.dev.technologia.androidapp.studybuddy.utils.PieChartDataPoint
 import com.developer.android.dev.technologia.androidapp.studybuddy.utils.SnackbarEvent
 import com.ramcosta.composedestinations.annotation.Destination
