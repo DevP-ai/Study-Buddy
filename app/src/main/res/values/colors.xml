@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FA0707</color>
     <color name="green">#09FA16</color>
+    <color name="violet">#673AB7</color>
+    <color name="saffron">#FF9800</color>
 </resources>
