@@ -73,6 +73,6 @@ jobs:
           serviceAccountJson: service_account.json
           packageName: com.developer.android.dev.technologia.androidapp.studybuddy
           releaseFiles: app/build/outputs/bundle/release/app-release.aab
-          track: production
+          track: internal
           status: 'completed'
           whatsNewDirectory: whatsNew/
